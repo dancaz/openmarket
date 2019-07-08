@@ -1,0 +1,74 @@
+<div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
+  fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlex="50%" *ngIf="character">
+    <mat-toolbar>
+      <button mat-button (click)="editCharacter()">
+        <mat-icon>edit</mat-icon>Edit information
+      </button>
+    </mat-toolbar>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title mat-line>
+          <span class="fa {{character.icon}} fa-lg"></span>
+          <span>{{character.name}}</span>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{character.description}}</p>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+  <div fxFlex="50%" *ngIf="character">
+    <mat-toolbar>
+      <button mat-button (click)="addGame()">
+        <mat-icon>add</mat-icon>Add new game
+      </button>
+    </mat-toolbar>
+
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let game of character.games" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{game.name}} ({{game.releaseYear}})
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-form-field>
+          <input matInput placeholder="Name" type="text" [(ngModel)]="game.name" name="name" #name="ngModel" required>
+          <mat-error *ngIf="name.errors?.required">Name is required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Release year" type="number" [(ngModel)]="game.releaseYear" name="releaseYear" #releaseYear="ngModel" pattern="^[0-9]+$" required>
+            <mat-error *ngIf="releaseYear.errors?.required">Release year is required</mat-error>
+          </mat-form-field>
+        <mat-form-field>
+          <mat-label>Platform</mat-label>
+          <mat-select [(ngModel)]="game.platform" name="platform" #platform="ngModel" required>
+            <mat-select-trigger>
+              {{game.platform}}
+            </mat-select-trigger>
+            <mat-option *ngFor="let platform of platforms" [value]="platform">
+              {{platform}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Genre</mat-label>
+            <mat-select [(ngModel)]="game.genre" name="genre" #genre="ngModel" required>
+              <mat-select-trigger>
+                {{game.genre}}
+              </mat-select-trigger>
+              <mat-option *ngFor="let genre of genres" [value]="genre">
+                {{genre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-button type="button" (click)="deleteGame(character.id,game.id)"><mat-icon>close</mat-icon> Delete</button>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+  </div>
+
+</div>

@@ -1,0 +1,24 @@
+<div class="container" fxLayout="column" fxLayoutGap="10px">
+
+  <div fxFlex>
+    <div mat-line>
+      <span>Characters</span>
+      <button mat-button (click)="newCharacter()" class="addButton"><mat-icon>add</mat-icon>Add New Character</button>
+      <hr>
+    </div>
+  </div>
+
+  <div fxFlex>
+    <mat-list>
+      <mat-list-item *ngFor="let character of characters" [routerLink]="['/detail', character.id]">
+        <p mat-line><span class="fa {{character.icon}} fa-lg"></span><span>{{character.name}}</span></p>
+        <button mat-button matTooltip="Delete character"
+          aria-label="Button that displays a tooltip when focused or hovered over" (click)="deleteCharacter($event,character.id)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </div>
+
+</div>

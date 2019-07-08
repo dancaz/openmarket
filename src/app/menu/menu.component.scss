@@ -1,0 +1,9 @@
+$accent-color:         #FFC107;
+
+mat-list-item:hover, 
+mat-list-item:active,
+mat-list-item:visited {
+  background-color: $accent-color;
+  cursor: pointer;
+}
+
